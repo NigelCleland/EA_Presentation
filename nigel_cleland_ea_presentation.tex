@@ -91,7 +91,6 @@
 \item Equilibrium Models of Reserve Participants
 \item Visualising Energy and Reserve Offers
 \item Using Bayesian Probability to assess Constraints
-\item Theoretical HVDC Transfer Capabilities
 \item Open Source and Open Data
 \end{itemize}
 \end{frame}
@@ -312,14 +311,173 @@ compared with the overall CDF for the providers}
 \end{figure}
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{\scshape Results}
-\subsection{Frame 1}
-\begin{frame}{Frame 1}
-
+\section{\scshape Equilibrium Models}
+\begin{frame}
+\vspace{1.5cm}
+\begin{center}
+{\Huge\textit{Equilibrium Models}}
+\end{center}
 \end{frame}
+
+\begin{frame}{Overview}
+\begin{itemize}
+\item Equilibrium Models give insight into how providers will act under
+simplified assumptions.
+\item Often used in market power assessments (e.g. UK/USA)
+\item Integrating Reserve Markets is difficult
+\item Some Prior art, but not as relevant to NZ.
+\item Use Linear Supply Functions
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Generator Problem}
+\begin{eqnarray*}
+C(g_{n,i}) &=& (\beta_{n,i} + \gamma_{n,i}g_{n,i})g_{n,i} \\
+C(r_{n,i}) &=& \alpha_{n,i}r_{n,i} \\
+R(c) &=& \sum_{n,i} \lambda_{n}g_{n,i} + \sum_{n,i} \mu_{n}r_{n,i} \\
+\pi(c) &=& \sum_{n,i} (\lambda_{n} - \beta_{n,i} - \gamma_{n,i}g_{n,i})g_{n,i} + \sum_{n,i} (\mu_{n} - \alpha_{n,i})r_{n,i}
+\end{eqnarray*}
+\end{frame}
+
+\begin{frame}{Setting up the Equilibrium}
+\begin{itemize}
+\item Want to Maximise Profit
+\item Generator specifically takes into account how they influence the others
+\item Introduce a Leader - Follower problem
+\item ISO acts as a Follower
+\item Introduce KKT conditions as constraints to the Generator Problem
+\end{itemize}
+\end{frame}
+
+\begin{frame}{ISO Primal Problem}
+\begin{eqnarray*}
+\min & \sum_{n,i} (\beta^{*}_{n,i} + 0.5\gamma^{*}_{n,i}g_{n,i})g_{n,i} + \sum_{n,i} \alpha^{*}_{n,i}r_{n,i} & \\
+\text{st} & \sum_{i \in n(i)} g_{n,i} + \sigma_{n}f = d_{n} \hspace{0.2cm} & \forall n \\
+& \sum_{i \in n(i)} r_{n,i} -\sigma_{n}f \ge 0 \hspace{0.2cm} & \forall n \\
+& 0 \le g_{n,i} \le G_{n,i} & \forall n, i \\
+& 0 \le r_{n,i} \le R_{n,i} & \forall n, i
+\end{eqnarray*}
+\end{frame}
+
+\begin{frame}{ISO Dual Problem}
+\begin{eqnarray*}
+\max &\sum_{n} d_{n}\lambda_{n} - \sum_{n,i} 0.5\gamma^{*}_{n,i}g_{n,i}^{2} & \\
+\mathrm{st} & \lambda_{n} \le \beta^{*}_{n,i} + \gamma^{*}_{n,i}g_{n,i} & \forall n, i \\
+& \mu_{n} \le \alpha^{*}_{n,i} & \forall n, i \\
+& \sum_{n} \sigma_{n}(\lambda_{n} - \mu_{n}) = 0 & \forall n
+\end{eqnarray*}
+\end{frame}
+
+\begin{frame}{ISO Complimentarity Conditions}
+\begin{eqnarray*}
+g_{n,i}(\beta^{*}_{n,i} + \gamma^{*}_{n,i}g_{n,i} - \lambda_{n}) = 0 & \forall n,i \\
+r_{n,i}(\alpha^{*}_{n,i} - \mu_{n}) = 0 & \forall n, i \\
+\mu_{n}(\sum_{i \in n(i)} r_{n,i} - \sigma_{n}f) = 0 & \forall n
+\end{eqnarray*}
+\end{frame}
+
+\begin{frame}{Full Problem Definition}
+\begin{eqnarray*}
+\max & \sum_{n,i} (\lambda_{n} - \beta_{n,i} - 0.5\gamma_{n,i}g_{n,i})g_{n,i}  & \\
+& \qquad + \sum_{n,i} (\mu_{n} - \alpha_{n,i})r_{n,i} & \\
+\mathrm{st} &\sum_{i \in n(i)} g_{n,i} + \sigma_{n}f = d_{n} \hspace{0.2cm} & \forall n \\
+&\sum_{i \in n(i)} r_{n,i} -\sigma_{n}f \ge 0 \hspace{0.2cm} & \forall n \\
+& 0 \le g_{n,i} \le G_{n,i} & \forall n, i \\
+& 0 \le r_{n,i} \le R_{n,i} & \forall n, i \\
+& \lambda_{n} \le \beta^{*}_{n,i} + \gamma^{*}_{n,i}g_{n,i} & \forall n, i \\
+& \mu_{n} \le \alpha^{*}_{n,i} & \forall n, i \\
+& \sum_{n} \sigma_{n}(\lambda_{n} - \mu_{n}) = 0 & \forall n \\
+& g_{n,i}(\beta^{*}_{n,i} + \gamma^{*}_{n,i}g_{n,i} - \lambda_{n}) = 0 & \forall n,i \\
+& r_{n,i}(\alpha^{*}_{n,i} - \mu_{n}) = 0 & \forall n, i \\
+& \mu_{n}(\sum_{i \in n(i)} r_{n,i} - \sigma_{n}f) = 0 & \forall n
+\end{eqnarray*}
+\end{frame}
+
+\begin{frame}{Why would I do this}
+\begin{itemize}
+\item I'm a Masochist?
+\item Theoretical Insights can lead to interesting conclusions
+\item Help explain the why, not just the what
+\item Publishable
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Preliminary Results}
+\begin{itemize}
+\item ``Blocking'' behavior has been observed
+\item When blocked the other participant will seek to equalise prices.
+\item Pre HVDC upgrade Meridian self withholding to not induce HVDC reserve constraints
+\item ``Optimal'' was most likely for them to generate 200-300 MW more at times
+\item Increase in MW leads to a decrease in price at your node, self defeating
+\item How much do you care about the efficient use of water
+\end{itemize}
+\end{frame}
+
+\section{\scshape Visualising Energy and Reserve Offers}
+\begin{frame}
+\vspace{1.5cm}
+\begin{center}
+{\Huge\textit{Visualising Energy and Reserve Offers}}
+\end{center}
+\end{frame}
+
+\section{\scshape Bayesian Probability and Constraints}
+\begin{frame}
+\vspace{1.5cm}
+\begin{center}
+{\Huge\textit{Bayesian Probability and Constraints}}
+\end{center}
+\end{frame}
+
+\section{\scshape Open Source and Open Data}
+\begin{frame}
+\vspace{1.5cm}
+\begin{center}
+{\Huge\textit{Open Source and Open Data}}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\vspace{1.5cm}
+\begin{center}
+{\Huge\textit{Why Open Source?}}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\vspace{1.5cm}
+\begin{center}
+{\Huge\textit{Opaque Analysis and Trust\\
+\vspace{0.5cm}
+Regulators create winners and losers}}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\vspace{1.5cm}
+\begin{center}
+{\Huge\textit{Why Open Data}}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\vspace{1.5cm}
+\begin{center}
+{\Huge\textit{Access to data fires collaborations \\
+\vspace{0.5cm}
+Ideas can come from external and internal places}}
+\end{center}
+\end{frame}
+
+\section*{Thank You}
+\begin{frame}
+\vspace{1.5cm}
+\begin{center}
+{\Huge\textit{Thank You}} \\
+\vspace{0.5cm}
+\textit{nigel.cleland@gmail.com}
+\end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \end{document}
