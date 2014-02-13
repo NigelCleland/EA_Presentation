@@ -99,7 +99,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{\scshape Reserve Constraints}
-\begin{frame}{It starts with a picture}
+\begin{frame}
+\vspace{1.5cm}
+\begin{center}
+{\Huge\textit{Reserve Constraints}}
+\end{center}
+\end{frame}
+
+\begin{frame}{\scshape It starts with a picture}
 \begin{figure}
 %\includegraphics[width=0.95\textwidth]{}
 \caption{Haywards Nodal Spot Price (x axis) compared with the North Island
@@ -109,14 +116,14 @@ FIR Price (y axis)}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Why does this matter?}
+\begin{frame}{\scshape Why does this matter?}
 \begin{figure}
 \includegraphics[width=0.95\textwidth]{img/reserveprice.png}
 \caption{Revenue ``lost'' for missing highly priced trading periods}
 \end{figure}
 \end{frame}
 
-\begin{frame}{Effect on Individual Consumers}
+\begin{frame}{\scshape Effect on Individual Consumers}
 \begin{table}
 \caption{Monthly Revenue ``missed'' by various IL producers}
 \begin{tabular}{cccc}
@@ -134,7 +141,7 @@ In November 2010 NZST missed 90\% of the monthly IR Revenue, SKOG missed 6\%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Some Theory}
+\begin{frame}{\scshape Some Theory}
 \scalebox{0.75}{
 \begin{minipage}{0.50\textwidth}
 \begin{eqnarray*}
@@ -168,7 +175,7 @@ In November 2010 NZST missed 90\% of the monthly IR Revenue, SKOG missed 6\%
 \end{minipage}}
 \end{frame}
 
-\begin{frame}{Case Studies}
+\begin{frame}{\scshape Case Studies}
 \begin{figure}
 \includegraphics[width=0.95\textwidth]{img/nodal_diagram.pdf}
 \caption{Some Case Studies to illustrate different mechanisms of binding
@@ -179,7 +186,7 @@ constraints occurring}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Case Study Results}
+\begin{frame}{\scshape Case Study Results}
 Marginal Risk Setting Generator
 \begin{equation}
 \pi = p_{g,marginal} - \lambda
@@ -190,7 +197,7 @@ Risk Constrained Transmission Line
 \end{equation}
 Bathtub Constrained Transmission
 \begin{equation}
-\pi_2 = \dfrac{1}{1+k_{g,2}}p_{g,2} + \dfrac{k_{g,2}}{1+k_{g,2}}(\pi_1 + p_{r,2})
+\pi_2 = \dfrac{1}{1+k_{g,2}}p_{g,2} + \dfrac{k_{g,2}}{1+k_{g,2}}(\pi_1 + \lambda_{2})
 \end{equation}
 \end{frame}
 
@@ -222,21 +229,91 @@ Bathtub Constrained Transmission
 \end{figure}
 \end{frame}
 
-\begin{frame}{Impact on the market}
+\section{\scshape Spot Market Prices}
+\begin{frame}
+\vspace{1.5cm}
+\begin{center}
+{\Huge\textit{Spot Market Prices}}
+\end{center}
+\end{frame}
+
+\begin{frame}{Scarcity, Constraints or Both?}
+\begin{itemize}
+\item How do we understand Price?
+\item Moving up a merit order stack?
+\item High Demand = High Price?
+\item Hydrology? Price = f(Inverse Hydro)
+\item Constraints?
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Average Price at Different Demand}
+\begin{figure}
+\includegraphics[width=0.95\textwidth]{img/price_vs_demand.pdf}
+\caption{The higher the demand, the higher the energy price, we're moving up
+the stack.}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Average Price at Different Hydrology}
+\begin{figure}
+\includegraphics[width=0.95\textwidth]{img/price_and_hydrology.pdf}
+\caption{As expected, the less water we have (relative to the lower decile
+for the time of year) the higher the average price}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Average Demand at Different Price Points}
+\begin{figure}
+\includegraphics[width=0.95\textwidth]{img/demand_and_price.pdf}
+\caption{The relationship between high demand and high prices isn't so
+clear when the reverse situation occurs}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Average Hydrology at Different Price Points}
+\begin{figure}
+\includegraphics[width=0.95\textwidth]{img/hydrology_and_price.pdf}
+\caption{The Paradox of Hydrology, the highest price trading periods are
+associated with large quantities of water}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Constraints at different price levels}
 \begin{figure}
 \includegraphics[width=0.95\textwidth]{img/constrained_periods_analysis.pdf}
 \caption{Aggregate assessment of constraints in the New Zealand Market}
 \end{figure}
 \end{frame}
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{frame 1}
-\begin{frame}{frame 1}
-
+\begin{frame}{Specific Constraints}
+\begin{table}
+\caption{Constraints binding during the top 155 priced trading periods}
+\begin{tabular}{lrrrr}
+\toprule
+{} &  Occurences &  Mean &  Min &  Max \\
+\midrule
+Waikato Block SIR Constraint &          41 &   768 &    0 & 4948 \\
+Waikato Block FIR Constraint &          40 &   491 &    2 & 3834 \\
+Tokaanu SIR Constraint       &          26 &   417 &    2 & 1010 \\
+Waikato Block Dispatch       &          21 &  1409 &   13 & 4653 \\
+Tokaanu FIR Constraint       &          13 &  1009 &    0 & 4409 \\
+\bottomrule
+\end{tabular}
+\end{table}
 \end{frame}
 
+\begin{frame}{Contextualising the Constraints}
+\begin{figure}
+\includegraphics[width=0.95\textwidth]{img/gen_mrp_output_vs_baseline.pdf}
+\caption{Dispatch (CDF) of Genesis and Mighty River during Constraints Periods
+(Genesis for Tokaanu Constraints, Mighty River for Waikato Constraints)
+compared with the overall CDF for the providers}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{\scshape Results}
