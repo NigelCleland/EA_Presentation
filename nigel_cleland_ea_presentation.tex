@@ -303,6 +303,7 @@ Tokaanu FIR Constraint       &          13 &  1009 &    0 & 4409 \\
 \end{frame}
 
 \begin{frame}{Contextualising the Constraints}
+\centering
 \begin{figure}
 \includegraphics[width=0.95\textwidth]{img/gen_mrp_output_vs_baseline.pdf}
 \caption{Dispatch (CDF) of Genesis and Mighty River during Constraints Periods
@@ -332,7 +333,7 @@ simplified assumptions.
 
 \begin{frame}{Generator Problem}
 \begin{eqnarray*}
-C(g_{n,i}) &=& (\beta_{n,i} + \gamma_{n,i}g_{n,i})g_{n,i} \\
+C(g_{n,i}) &=& (\beta_{n,i} + 0.5\gamma_{n,i}g_{n,i})g_{n,i} \\
 C(r_{n,i}) &=& \alpha_{n,i}r_{n,i} \\
 R(c) &=& \sum_{n,i} \lambda_{n}g_{n,i} + \sum_{n,i} \mu_{n}r_{n,i} \\
 \pi(c) &=& \sum_{n,i} (\lambda_{n} - \beta_{n,i} - \gamma_{n,i}g_{n,i})g_{n,i} + \sum_{n,i} (\mu_{n} - \alpha_{n,i})r_{n,i}
@@ -421,12 +422,174 @@ r_{n,i}(\alpha^{*}_{n,i} - \mu_{n}) = 0 & \forall n, i \\
 \end{center}
 \end{frame}
 
+\begin{frame}{Understanding Tradeoffs}
+\begin{itemize}
+\item Reserve and Energy are linked
+\item Unit Capability
+\item Energy Price
+\item Reserve Price
+\item Security Constraints can be very important
+\end{itemize}
+\end{frame}
+
+\begin{frame}{The Inverse Bathtub}
+\begin{figure}
+\centering
+\includegraphics[width=0.95\textwidth]{img/Bathtub_Constraint_Image.png}
+\caption{Depiction of the technical constraints limiting energy and reserve
+offers, proportionality, capacity, unit capability constraints, Bhujanga
+Chakrabarti, System Operator}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Flaws with the representation}
+\begin{itemize}
+\item Technically Feasible does not imply Economically Feasible
+\item No consideration of price
+\item Single Unit Representation
+\end{itemize}
+\center{{\scshape Improving the Representation}}
+\begin{itemize}
+\item Energy Prices and Reserve Prices are important
+\item Combinations are importants
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Single Unit}
+\begin{figure}
+\includegraphics[width=0.95\textwidth]{img/mti_station_fan.png}
+\caption{Representation of the Fan Offered for Maraetai for TP19}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Single Company}
+\begin{figure}
+\includegraphics[width=0.95\textwidth]{img/mrpl_fan_curve.png}
+\caption{Representation of the Fan offers by Mighty River Power for TP19}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Entire Island}
+\begin{figure}
+\includegraphics[width=0.95\textwidth]{img/full_ni_fan.png}
+\caption{Full Representation of the North Island Offer Fan for TP19}
+\end{figure}
+\end{frame}
+
+\begin{frame}{How this works}
+\begin{itemize}
+\item Create an incremental capacity line for each unit of (1MW increments) linked with energy price.
+\item For each reserve pairings create a corresponding incremental reserve line bound by the bathtub constraints.
+\item Do a little bit of book keeping for the combined capacity constraint.
+\item Produce a number of station fans which can then be filtered and grouped
+based upon reserve price.
+\item Create a separate ``fan'' for each reserve price and offer.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{How this works v2}
+\begin{itemize}
+\item Take a subset of the stations
+\item Filter by each unique reserve price
+\item Group by each unique reserve price, offer precedence to higher ratio units
+\item Sort by energy price, reserve price, reserve ratio
+\item Plot it (Actually it's dozens of automatically generated plots merged together)
+\item Cross fingers it doesn't break
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Issues and Future Improvements}
+\begin{itemize}
+\item Interruptible Load Offers
+\item Tail Water Depressed Offers
+\item Overlay Energy and Reserve Clearing Quantites
+\item Multiple technology types don't play well.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Intended Use Cases}
+\begin{itemize}
+\item Instances of ``withholding'' reserve by pricing energy out
+\item Useful Visualisation for market strategies
+\item HVDC transfer operations (identifying feasibility)
+\item Meridian Trading Optimisation Problem
+\item Priority?
+\end{itemize}
+\end{frame}
+
 \section{\scshape Bayesian Probability and Constraints}
 \begin{frame}
 \vspace{1.5cm}
 \begin{center}
 {\Huge\textit{Bayesian Probability and Constraints}}
 \end{center}
+\end{frame}
+
+\begin{frame}{What conditions}
+\Large
+\begin{equation*}
+P( \text{Constraint} | \text{State of the World} )
+\end{equation*}
+\end{frame}
+
+% \begin{frame}{What conditions are linked to reserve constraints}
+% \Large
+% \begin{equation}
+% P(\text{Constraint} | \text{State of the world})
+% \end{equation}
+% \normal
+% \end{frame}
+
+\begin{frame}{States of the World}
+\begin{itemize}
+\item Primary
+\begin{itemize}
+\item Hydrology
+\item Time of Year
+\item Time of Day
+\end{itemize}
+\item Derived
+\begin{itemize}
+\item Price
+\item Demand
+\item Availability
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Hydrology}
+Problem: Hydrology is not evenly distributed, very chunky \\
+Solution: \\
+\begin{eqnarray*}
+P(C | H) &=& \alpha P(C | \ge H) + (1 - \alpha) P (C | \le H) \\
+\alpha &=& 1 - \dfrac{n}{N}
+\end{eqnarray*}
+\end{frame}
+
+\begin{frame}{What does this look like}
+\begin{figure}
+\includegraphics[width=0.95\textwidth]{img/prob_models.png}
+\caption{Illustration of the weighting procedure for assessing constraints as
+a function of Hydrology, time of year (Summer) and time of day (Peak)}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Fitting this information}
+\begin{figure}
+\includegraphics[width=0.95\textwidth]{img/nimodelts.png}
+\caption{Fitting the model to fitted historical data (solid line) and unfitted
+historical data (dashed lines).}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Results and Flaws}
+\begin{itemize}
+\item Can predict constraints in aggregate, no information about price
+\item Identifies periods which are ``sensitive'' to reserve
+\item Haven't had time to formalise the methodology
+\item Work was done prior to HVDC commissioning
+\item Appears to overweight low probability periods.
+\end{itemize}
 \end{frame}
 
 \section{\scshape Open Source and Open Data}
